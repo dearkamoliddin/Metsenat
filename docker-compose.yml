@@ -6,7 +6,7 @@ volumes:
 
 services:
   web:
-    container_name: ${PROJECT_NAME}_webb
+    container_name: ${PROJECT_NAME}_web
     depends_on:
       - db
     build: .
