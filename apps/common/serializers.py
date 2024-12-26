@@ -32,7 +32,7 @@ class SponsorSerializer(ModelSerializer):
 class UniversitySerializer(ModelSerializer):
     class Meta:
         model = University
-        fields = ('name',)
+        fields = ['name']
 
 
 class StudentSponsor1Serializer(ModelSerializer):

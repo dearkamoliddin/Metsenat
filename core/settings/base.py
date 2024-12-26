@@ -52,7 +52,9 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+
     "rest_framework_simplejwt",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {

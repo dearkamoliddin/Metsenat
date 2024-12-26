@@ -27,8 +27,8 @@ from apps.common.serializers import (
     DashboardSerializer,
 )
 
-permissions = "" #[IsAuthenticated]
-authentications = "" #[JWTAuthentication]
+permissions = [IsAuthenticated]
+authentications = [JWTAuthentication]
 
 
 class UserAPIView(APIView):
