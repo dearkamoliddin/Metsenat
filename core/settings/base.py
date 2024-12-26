@@ -42,7 +42,6 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_filters",
 ]
 
 CUSTOM_APPS = [
@@ -53,18 +52,19 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    "rest_framework_simplejwt",
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": (
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
     ),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 2,
 }
 
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -163,14 +163,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{env.str('REDIS_URL', 'redis://localhost:6379/0')}",
+        "LOCATION": f"{env.str('REDIS_URL', 'redis://redis:6379')}",
         "KEY_PREFIX": "boilerplate",  # todo: you must change this with your project name or something else
     }
 }
 
 # CELERY CONFIGURATION
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://redis:6379")
+CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://redis:6379")
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 

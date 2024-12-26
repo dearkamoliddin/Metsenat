@@ -1,4 +1,3 @@
-version: '3'
 
 volumes:
   postgres_data: {}
@@ -18,7 +17,7 @@ services:
     env_file: .env
     command: python manage.py runserver
     ports:
-      - ${PORT}:${PORT}
+      - "8003:8000"
     restart: always
 
   db:
@@ -37,5 +36,18 @@ services:
 
   redis:
     container_name: ${PROJECT_NAME}_redis
-    image: redis:5.0
+    image: redis
     restart: always
+
+  celery:
+    container_name: django_celery_docker
+    build: .
+    volumes:
+      - .:/app
+    command: celery -A core worker -l INFO
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - db
+      - redis
