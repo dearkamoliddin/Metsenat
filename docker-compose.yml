@@ -6,7 +6,7 @@ volumes:
 
 services:
   web:
-    container_name: ${PROJECT_NAME}_web
+    container_name: ${PROJECT_NAME}_webb
     depends_on:
       - db
     build: .
@@ -40,7 +40,7 @@ services:
     restart: always
 
   celery:
-    container_name: django_celery_docker
+    container_name: celery_docker
     build: .
     volumes:
       - .:/app
