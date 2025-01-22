@@ -165,14 +165,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{env.str('REDIS_URL', 'redis://localhost:6379/0')}",
+        "LOCATION": f"{env.str('REDIS_URL', 'redis://redis:6379')}",
         "KEY_PREFIX": "boilerplate",  # todo: you must change this with your project name or something else
     }
 }
 
 # CELERY CONFIGURATION
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://redis:6379")
+CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://redis:6379")
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 

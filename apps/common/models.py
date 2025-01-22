@@ -57,3 +57,11 @@ class StudentSponsor(models.Model):
 
     def __str__(self):
         return f"{self.sponsor} is sponsor for {self.student}"
+
+class StudentSponsor(models.Model):
+    sponsor = models.ForeignKey(Sponsor, on_delete=models.PROTECT)
+    student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    allocated_money = models.FloatField()
+
+    def __str__(self):
+        return f"{self.sponsor} is sponsor for {self.student}"

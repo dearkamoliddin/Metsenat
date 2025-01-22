@@ -1,4 +1,3 @@
-version: '3'
 
 volumes:
   postgres_data: {}
@@ -18,12 +17,12 @@ services:
     env_file: .env
     command: python manage.py runserver
     ports:
-      - ${PORT}:${PORT}
+      - "8003:8000"
     restart: always
 
   db:
     image: postgres:13.4-buster
-    container_name: ${PROJECT_NAME}_db
+    container_name: ${PROJECT_NAME}_database
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file: .env
@@ -36,6 +35,19 @@ services:
     restart: always
 
   redis:
-    container_name: ${PROJECT_NAME}_redis
-    image: redis:5.0
+    container_name: ${PROJECT_NAME}_rds
+    image: redis
     restart: always
+
+  celery:
+    container_name: celery_docker
+    build: .
+    volumes:
+      - .:/app
+    command: celery -A core worker -l INFO
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - db
+      - redis
